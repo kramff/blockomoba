@@ -1,0 +1,73 @@
+players
+ -block gun
+ -other items: purchase with blocks? or "money" from puzzles
+
+jungle
+ -free blocks
+
+laning
+ -random puzzle solving for blocks
+  -mini maze navigation: get the block or stand on tile
+  -pattern matching: place blocks to match tiles or more difficult puzzle (picross?)
+ -quick solve = push lane (next puzzle is closer to enemy base)
+
+tower
+ -push to "tower"
+ -solve complex puzzle, fail = pushed back
+ -tower fights back if puzzle failed?
+
+hidden challenge (roshan equivalent)
+ -complete the challenge to get Extra Life item
+ -Chris idea: Challenge is announced to both teams
+  -Fights over getting a person in first
+  -Only 1 person per team
+  -Challenge: side by side puzzle race>
+
+items
+-Block Gun (starting item)
+ -No block limit
+ -No range limit
+ -Only shoots N, S, E, W
+
+-Short Range Gun (20B)
+ -5 block limit
+ -1 range, doesn't need to hit wall (Places the block right in front of user)
+ -Only shoots N, S, E, W
+
+-Diagonal Gun (25B)
+ -1 block limit
+ -no range limit
+ -Only shoots NE, NW, SE, SW
+
+-Area Gun (30B)
+ -24 block limit
+ -Only affects the 5x5 area within 2 tiles of the user
+ -Places all 24 at once
+
+-Block Detonator (20B)
+ -1 block limit
+ -2 range limit (Does need to hit wall)
+ -Only shoots N, S, E, W
+ -The block it shoots explodes after short delay
+ -Nearby blocks also explode, possible chain reaction
+
+-Shielded Blocks (25B)
+ -5 block limit
+ -Use 5 blocks to activate:
+ -For 10 seconds, user's other block guns place Shielded Blocks that cannot be collected
+ -After the 10 seconds the blocks return to normal
+
+-Extra Life (Get from Challenge)
+ -Respawn above where you were killed, block that killed you is shielded
+
+-Stomp Boots (25B)
+ -Kill playes you fall on
+
+-Blockomancy (25B)
+ -Arrange blocks in certain patterns to activate spells
+ -Arrow: travel quickly
+ -Stairs: create stairs
+ -Square: create cube
+ -Rectangle: create wall
+ -Waves: lava pit
+

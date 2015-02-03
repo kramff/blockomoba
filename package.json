@@ -1,0 +1,25 @@
+{
+  "name": "Blockomoba",
+  "version": "0.1.2",
+  "description": "Blockomancy MOBA Game",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "socket.io": "~1.0.x",
+    "perlin-noise": "~0.0.1"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heroku/node-js-getting-started"
+  },
+  "keywords": [
+    "node",
+    "heroku"
+  ],
+  "license": "MIT"
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ultimate Blockomancy Multiplayer Battle</title>
+</head>
+<body onload='Init();' bgcolor='gray'>
+
+<!--
+<div id="canvases" style="position:relative; width:600px; height:600px">
+	<canvas id="3D_Layer" style="z-index: 1; position: absolute; left:0px; top:0px;" height="600px" width="600px">
+	no canvas (3D)
+	</canvas>
+	<canvas id="2D_Layer" style="z-index: 2; position: absolute; left:0px; top:0px;" height="600px" width="600px">
+	no canvas (2D)
+	</canvs>
+</div>
+-->
+
+<div id="canvases" style="position:relative; width:600px; height:600px">
+	<canvas id="layer1" style="z-index: 1; position:absolute; left:0px; top:0px;" height="600px" width="600">
+		No canvas? 2d canvas...
+	</canvas>
+</div>
+
+
+
+
+</body>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="three.min.js"></script>
+
+<script src="script.js"></script>
+
+
+
+<style type="text/css">
+body {
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+
+
+</style>
+
+</html>
