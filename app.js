@@ -41,7 +41,7 @@ var server = http.createServer(function (req, res) {
 		});
 	}
 });
-server.listen(8080);
+server.listen(process.env.PORT || 5000);
 
 //Update file cache when files are updated change
 fs.watch("public", function (event, filename) {
@@ -331,10 +331,7 @@ function Update () {
 				io.emit("block", jungleCamps[i]);
 			}
 		}
-		
 	}
-
-	
 }
 
 setInterval(Update, 30);
