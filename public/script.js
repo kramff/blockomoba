@@ -827,12 +827,16 @@ function DeathParticles (x, y, z) {
 }
 
 function ShotParticlesInLine (x, y, z, x2, y2, z2) {
-	var dist = Math.abs(x - x2) + Math.abs(y - y2) + Math.abs(z - z2);
-	for (var i = 0; i < dist * 3; i++)
+	if (particles.length > 50)
 	{
-		var px = x + (x2 - x) * ((i / 3) / dist);
-		var py = y + (y2 - y) * ((i / 3) / dist);
-		var pz = z + (z2 - z) * ((i / 3) / dist);
+		return;
+	}
+	var dist = Math.abs(x - x2) + Math.abs(y - y2) + Math.abs(z - z2);
+	for (var i = 0; i < dist * 1; i++)
+	{
+		var px = x + (x2 - x) * ((i / 1) / dist);
+		var py = y + (y2 - y) * ((i / 1) / dist);
+		var pz = z + (z2 - z) * ((i / 1) / dist);
 		AddParticle(px, py, pz, P_SHOT);
 	}
 }
