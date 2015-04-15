@@ -41,7 +41,7 @@ var server = http.createServer(function (req, res) {
 		});
 	}
 });
-server.listen(process.env.PORT || 5000);
+server.listen(process.env.PORT || 8080);
 
 //Update file cache when files are updated change
 fs.watch("public", function (event, filename) {
@@ -306,7 +306,10 @@ io.on("connection", function (socket) {
 	});
 });
 
-
+//Music variables
+var NO_MUSIC = 0;
+var LUX_MUSIC = 1;
+var MARIO_MUSIC = 2;
 
 var timer = 0;
 function Update () {
@@ -329,6 +332,28 @@ function Update () {
 			{
 				jungleCamps[i].SetAreaData(BLOCK);
 				io.emit("block", jungleCamps[i]);
+			}
+		}
+
+		for (var i = 0; i < playerArray.length; i++)
+		{
+			var player = playerArray[i];
+			if (player.x == 30 && player.y == 6 && player.z == 74)
+			{
+				//ChangeMusic to Mario Paint BGM 1
+				io.emit("changeMusic", {num: MARIO_MUSIC});
+				console.log("Change to m p bgm");
+			}
+			else if (player.x == 90 && player.y == 8 && player.z == 74)
+			{
+				//ChangeMusic to Lux
+				io.emit("changeMusic", {num: LUX_MUSIC});
+				console.log("Change to lux");
+			}
+			else
+			{
+				io.emit("changeMusic", {num: NO_MUSIC});
+				console.log("off");
 			}
 		}
 	}
@@ -355,3 +380,6 @@ function IsNumInt (n) {
 }
 
 console.log("Server ready.");
+
+//30, 6, 74
+//90, 8, 74

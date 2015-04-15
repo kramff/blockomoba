@@ -1026,6 +1026,10 @@ socket.on("deathEffect", function (msg) {
 	DeathParticles(msg.x, msg.y, msg.z);
 });
 
+socket.on("changeMusic", function (msg) {
+	ChangeMusic(msg.num);
+});
+
 function SetTile (x, y, z, type) {
 
 	//localArea[x][y][z]
@@ -1247,11 +1251,44 @@ window.addEventListener('paste', function (e) {
 
 
 //Audio
-var music = new Audio("Lux.ogg");
+var music_lux = new Audio("lux.ogg");
+var music_mario = new Audio("mario_paint_bgm_1.ogg");
 //music.play();
-music.onended = function (e) {
+music_lux.onended = function (e) {
 	this.currentTime = this.startTime || 0;
 	this.play();
+}
+music_mario.onended = function (e) {
+	this.currentTime = this.startTime || 0;
+	this.play();
+}
+var NO_MUSIC = 0;
+var LUX_MUSIC = 1;
+var MARIO_MUSIC = 2;
+
+var currentMusic = NO_MUSIC;
+
+function ChangeMusic (music) {
+	console.log(music);
+	if (currentMusic != music)
+	{
+		currentMusic = music;
+		if (music == NO_MUSIC)
+		{
+			music_mario.pause()
+			music_lux.pause()
+		}
+		if (music == LUX_MUSIC)
+		{
+			music_mario.pause()
+			music_lux.play()
+		}
+		if (music == MARIO_MUSIC)
+		{
+			music_mario.play()
+			music_lux.pause()
+		}
+	}
 }
 
 
