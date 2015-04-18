@@ -55,7 +55,6 @@ fs.watch("public", function (event, filename) {
 			else
 			{
 				//Update File
-				//console.log("Updated file " + filename);
 				files['/' + filename] = data;
 			}
 		});
@@ -342,18 +341,18 @@ function Update () {
 			{
 				//ChangeMusic to Mario Paint BGM 1
 				io.emit("changeMusic", {num: MARIO_MUSIC});
-				console.log("Change to m p bgm");
+				//console.log("Change to m p bgm");
 			}
 			else if (player.x == 90 && player.y == 8 && player.z == 74)
 			{
 				//ChangeMusic to Lux
 				io.emit("changeMusic", {num: LUX_MUSIC});
-				console.log("Change to lux");
+				//console.log("Change to lux");
 			}
 			else
 			{
 				io.emit("changeMusic", {num: NO_MUSIC});
-				console.log("off");
+				//console.log("off");
 			}
 		}
 	}

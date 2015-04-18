@@ -18,7 +18,6 @@ function UpdatePlayer (player) {
 			if (player.message != playerArray[i].message)
 			{
 				//Message has changed
-				//console.log("Message changed")
 				var utterance = new SpeechSynthesisUtterance(player.message);
 				//var voices = window.speechSynthesis.getVoices();
 				//utterance.voice = voices[7];
@@ -70,10 +69,16 @@ var dLight2 = new THREE.DirectionalLight(0xffffff, 0.25);
 dLight2.position.set(-0.5, 1, -0.5);
 scene.add(dLight2);
 
+//Texture
+var player_texture = THREE.ImageUtils.loadTexture("Images/Textures/player_tex.png");
+var other_texture = THREE.ImageUtils.loadTexture("Images/Textures/other_tex.png");
+var ground_light_texture = THREE.ImageUtils.loadTexture("Images/Textures/ground_light_tex.png");
+var ground_dark_texture = THREE.ImageUtils.loadTexture("Images/Textures/ground_dark_tex.png");
+var block_texture = THREE.ImageUtils.loadTexture("Images/Textures/block_tex.png");
 
 //local player cube
 var boxGeo = new THREE.BoxGeometry(1, 1, 1);
-var boxMat = new THREE.MeshPhongMaterial({color: 0xff0000});
+var boxMat = new THREE.MeshPhongMaterial({map: player_texture});
 var cube = new THREE.Mesh(boxGeo, boxMat);
 
 scene.add(cube);
@@ -144,9 +149,8 @@ for (var i = 0; i < AREA_X_SIZE; i++)
 
 
 
-var boxMat2 = new THREE.MeshPhongMaterial({color: 0x0000ff});
-var solidMat = new THREE.MeshPhongMaterial({color: 0x404040});
-var blockMat = new THREE.MeshPhongMaterial({color: 0xff8000});
+var boxMat2 = new THREE.MeshPhongMaterial({map: other_texture});
+var blockMat = new THREE.MeshPhongMaterial({map: block_texture});
 blockMat.transparent = true;
 blockMat.opacity = 0.75
 
@@ -154,8 +158,15 @@ var solidMatArray = [];
 
 for (var i = 0; i < AREA_Y_SIZE; i++)
 {
-	var color = 0x404040 + (i % 2) * 0x303030 + i * 0x030303;
-	solidMatArray.push(new THREE.MeshPhongMaterial({color: color}));
+	//var color = 0x404040 + (i % 2) * 0x303030 + i * 0x030303;
+	if (i % 2 == 0)
+	{
+		solidMatArray.push(new THREE.MeshPhongMaterial({map: ground_light_texture}));
+	}
+	else
+	{
+		solidMatArray.push(new THREE.MeshPhongMaterial({map: ground_dark_texture}));
+	}
 }
 
 //Particle information and data
@@ -182,10 +193,6 @@ camera.position.z = 5;
 camera.position.y = 5;
 camera.rotation.x = -Math.PI / 2;
 
-var groundGeo = new THREE.BoxGeometry(50, 1, 50);
-var groundMat = new THREE.MeshPhongMaterial({color: 0x11ee00});
-var ground = new THREE.Mesh(groundGeo, groundMat);
-//scene.add(ground);
 
 var wKey = false;
 var aKey = false;
@@ -348,7 +355,7 @@ function Update () {
 		cube.position.y = Math.round(newY + 0.49);
 		yVel = Math.max(yVel, 0);
 		changeY = Math.max(changeY, 0);
-		//console.log("Down collision");
+		//Down collision
 		canJump = !didJump;
 	}
 	else
@@ -361,7 +368,7 @@ function Update () {
 			cube.position.y = Math.round(newY - 0.49);
 			yVel = Math.min(yVel, 0);
 			changeY = Math.min(changeY, 0);
-			//console.log("Up collision");
+			//Up collision
 		}
 	}
 	
@@ -373,14 +380,14 @@ function Update () {
 		cube.position.x = Math.round(newX + 0.49);
 		xVel = Math.max(xVel, 0);
 		changeX = Math.max(changeX, 0);
-		//console.log("West collision");
+		//West collision
 	}
 	if (IsSolidR(newX + 0.49, newY, newZ, true))
 	{
 		cube.position.x = Math.round(newX - 0.49);
 		xVel = Math.min(xVel, 0);
 		changeX = Math.min(changeX, 0);
-		//console.log("East collision");
+		//East collision
 	}
 	//re-evaluate newX
 	newX = cube.position.x + xVel + changeX;
@@ -391,14 +398,14 @@ function Update () {
 		cube.position.z = Math.round(newZ + 0.49);
 		zVel = Math.max(zVel, 0);
 		changeZ = Math.max(changeZ, 0);
-		//console.log("North collision");
+		//North collision
 	}
 	if (IsSolidR(newX, newY, newZ + 0.49, true))
 	{
 		cube.position.z = Math.round(newZ - 0.49);
 		zVel = Math.min(zVel, 0);
 		changeZ = Math.min(changeZ, 0);
-		//console.log("South collision");
+		//South collision
 	}
 	//re-evaluate newZ
 	newZ = cube.position.z + zVel + changeZ;
@@ -422,7 +429,7 @@ function Update () {
 			xVel = Math.max(xVel, 0);
 			changeX = Math.max(changeX, 0);
 		}
-		//console.log("North-West collision");
+		//North-West collision
 	}
 	//NE collision
 	if (IsSolidR(newX + 0.49, newY, newZ - 0.49))
@@ -442,7 +449,7 @@ function Update () {
 			xVel = Math.min(xVel, 0);
 			changeX = Math.min(changeX, 0);
 		}
-		//console.log("North-East collision");
+		//North-East collision
 	}
 	//SW collision
 	if (IsSolidR(newX - 0.49, newY, newZ + 0.49))
@@ -462,7 +469,7 @@ function Update () {
 			xVel = Math.max(xVel, 0);
 			changeX = Math.max(changeX, 0);
 		}
-		//console.log("South-East collision");
+		//South-East collision
 	}
 	//SE collision
 	if (IsSolidR(newX + 0.49, newY, newZ + 0.49))
@@ -482,7 +489,7 @@ function Update () {
 			xVel = Math.min(xVel, 0);
 			changeX = Math.min(changeX, 0);
 		}
-		//console.log("South-East collision");
+		//South-East collision
 	}
 
 
@@ -576,7 +583,7 @@ function Update () {
 	{
 		positionChanged = true;
 		MapFuncToLocalArea(HideFarBlock);
-		//console.log("Hiding far blocks")
+		//Hiding far blocks
 	}
 
 	if (positionChanged || dirChanged)
@@ -590,7 +597,7 @@ function Update () {
 			indCube.position.set(farSpace.x, farSpace.y, farSpace.z);
 			bTargetReady = true;
 			bTarget = farSpace;
-			//console.log("Moving indicator cube");
+			//Moving indicator cube
 
 			//Next space after (for gathering cubes)
 			var nextSpace = GetNextSpaceByDir(farSpace.x, farSpace.y, farSpace.z, mDir);
@@ -607,7 +614,7 @@ function Update () {
 		{
 			indCube.visible = false;
 			bTargetReady = false;
-			//console.log("Hiding indicator cube");
+			//Hiding indicator cube
 			var nextSpace = GetNextSpaceByDir(Math.round(cube.position.x), Math.round(cube.position.y), Math.round(cube.position.z), mDir);
 			if (nextSpace)
 			{
@@ -695,8 +702,7 @@ function IsSolid (x, y, z, checkPlayers) {
 		return false;
 	}
 	//Not a whole number position: Solid????
-	console.log("Number given not an integer! IsSolid()");
-	debugger;
+	throw new Error("Number given not an integer! IsSolid()");
 	return true;
 }
 
@@ -778,7 +784,7 @@ function FindFarthestEmptySpace (x, y, z, xCh, yCh, zCh) {
 	}
 	else
 	{
-		console.log("Number given not an integer! FindFarthestEmptySpace()")
+		throw new Error("Number given not an integer! FindFarthestEmptySpace()")
 	}
 	//Over 100 iteration or non-integer input: false
 	return false;
@@ -997,7 +1003,7 @@ socket.on("block", function (msg) {
 
 	if (msg.x == Math.round(cube.position.x) && msg.y == Math.round(cube.position.y) && msg.z == Math.round(cube.position.z))
 	{
-		//console.log("I died");
+		//died
 		DeathParticles(cube.position.x, cube.position.y, cube.position.z);
 		socket.emit("deathEffect", {x: cube.position.x, y: cube.position.y, z: cube.position.z});
 		cube.position.set(2, 11, 2);
@@ -1202,7 +1208,6 @@ window.onmousemove = function (e) {
 }
 
 window.onmousedown = function (e) {
-	//console.log(mDir);
 	dirChanged = true;
 
 	//Determine if left or right click
@@ -1237,13 +1242,11 @@ window.oncontextmenu = function(event) {
 };
 
 window.addEventListener('copy', function (e) {
-	console.log('copy event');
 	e.clipboardData.setData('text/plain', messageInput);
 	e.preventDefault();
 });
 
 window.addEventListener('paste', function (e) {
-	console.log('paste event');
 	messageInput += e.clipboardData.getData('text/plain');
 	e.preventDefault();
 });
@@ -1269,7 +1272,6 @@ var MARIO_MUSIC = 2;
 var currentMusic = NO_MUSIC;
 
 function ChangeMusic (music) {
-	console.log(music);
 	if (currentMusic != music)
 	{
 		currentMusic = music;
